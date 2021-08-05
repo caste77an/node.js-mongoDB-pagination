@@ -17,10 +17,15 @@ exports.create = (req, res) => {
   }
 
   // Create a Tutorial
+  // column data modified 20210802
   const tutorial = new Tutorial({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false,
+    user: req.body.user,
+    email: req.body.email,
+    name: req.body.name,
+    college: req.body.college,
+    class: req.body.class,
+    gender: req.body.gender,
+    status: req.body.status ? req.body.status : false,
   });
 
   // Save Tutorial in the database
@@ -39,9 +44,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const { page, size, title } = req.query;
-  var condition = title
-    ? { title: { $regex: new RegExp(title), $options: "i" } }
+  const { page, size, user } = req.query;
+  var condition = user
+    ? { user: { $regex: new RegExp(user), $options: "i" } }
     : {};
 
   const { limit, offset } = getPagination(page, size);
